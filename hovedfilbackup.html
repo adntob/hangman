@@ -1,0 +1,149 @@
+
+ <!-- ctrl + f5 vil refreshe CSS-ark også-->
+<!DOCTYPE html>
+	<html>
+
+		<head>
+			<meta charset="utf-8" />  <!--Dette er for å få til skandinaviske språk -->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+			<link rel="stylesheet" type= "text/css" media =	"all" href="stylesheet/stilark.css"> 
+			<title> Hangman</title>
+			
+			<script src ="script/ordliste.js"></script>
+			<script src = "script/playaudio.js"></script>
+			<script src = "script/hovedfil.js"></script>
+	
+			
+		</head>
+
+		<body>
+			
+			<div	id="master-grid">
+				
+				<header id = "top-header">
+					<h1>Obligatorisk innlevering 4</h1>
+				</header>				
+				
+				<nav id = "navigationmenu">
+					<ul>
+						<li><a href = "#">Hangman</a></li>
+						<li><a href = "#">DummyLink</a></li>
+						<li><a href = "#">DummyLink</a></li>
+						<li><a href = "#">DummyLink</a></li>
+						<li><a href = "#">DummyLink</a></li>
+						<li><a href = "#">DummyLink</a></li>
+						<li><a href = "#">DummyLink</a></li>
+					</ul>
+				</nav>
+				
+				<div id ="flater">
+					<canvas  width =	"600px" height = "700px" id =	"lerret">Din browser støtter ikke HTML5</canvas>
+					<canvas  width =	"600px" height = "700px" id =	"lerret2">Din browser støtter ikke HTML5</canvas>
+				</div>
+				
+				
+				<main>
+				
+					
+					<section id ="section-hint">
+						<p> Velg kategorie	
+						<select id ="lstCategory"></select>
+						</p>	
+						
+						<p>
+							<button  type = "button" id =	"btnStart">Start!</button> 
+							
+							HINT:	<i id ="btnHint" class="fa fa-question-circle fa-2x" aria-hidden="true"></i>
+						</p>
+					
+					</section>
+					
+					
+					
+					
+					<section id ="section-submit">
+					
+						<header> 
+							<h3> Submit letter</h3>
+						</header>
+						
+						
+					
+						
+						<p>
+							Skriv inn en bokstav:
+						</p>
+						
+						
+						
+							<p>
+							
+							
+								<input type ="text" id =	"txtBokstav" maxlength = "1"	/>
+							
+							
+							
+							</p>
+							
+							
+							<p>
+							
+								<button  type = "button" id =	"btnSubmit" >Submit!  </button>
+							
+							<p/>	
+						
+						
+						
+						
+						
+					</section>
+					
+					<section id ="section-wrong">
+					
+						<header>
+							<h3>Wrong letters</h3>
+						</header>
+					
+						<p id	=	"utskriftFeil"></p>
+					</section>
+					
+					
+					
+					<section id = "section-points">
+					
+						<header>
+							<h3>Score</h3>
+						</header>
+						
+						<p><i class="fa fa-hourglass-half fa-2x" aria-hidden="true"></i></p>
+						
+						<p>sum:
+							<span id ="txtPoints"> </span>
+						</p>
+						
+						<p>Round: <span id ="txtRounds"></span></p>
+						<p>Time: </p>
+						
+					</section>
+					
+				</main>
+				
+				
+				<footer>
+						<p id=	"contact">
+							Ådne Tobiesen 	
+							<a href="https://www.linkedin.com/in/%C3%A5dne-tobiesen-0b44b5a8/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+							<a href ="mailto:aadne.t@live.com"><i class="fa fa-envelope" aria-hidden="true"></i> </a>
+							<a href="http://www.facebook.com/smygen91"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+						</p>
+						
+				</footer>
+			
+				
+			</div>
+			
+			
+		</body>
+
+	</html>
