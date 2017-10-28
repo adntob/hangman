@@ -6,6 +6,7 @@
 		<head>
 			<meta charset="utf-8" />  <!--Dette er for å få til skandinaviske språk -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 			<link rel="stylesheet" type= "text/css" media =	"all" href="stylesheet/stilark.css"> 
 			<title> Hangman</title>
@@ -27,24 +28,17 @@
 				
 				<nav id = "navigationmenu">
 					<ul>
-						<li><a href = "#">Hangman</a></li>
-						<li><a href = "#">DummyLink</a></li>
-						<li><a href = "#">DummyLink</a></li>
-						<li><a href = "#">DummyLink</a></li>
-						<li><a href = "#">DummyLink</a></li>
-						<li><a href = "#">DummyLink</a></li>
-						<li><a href = "#">DummyLink</a></li>
+						<li><span id ="activeDirectory"><a href = "#">Oppgave 4 b) Hangman</a></span></li>
+						<li><a href = "#">Oppgave 4 c) Resterende oppgaver</a></li>
 					</ul>
 				</nav>
 				
 				<div id ="flater">
-					<canvas  width =	"600px" height = "700px" id =	"lerret">Din browser støtter ikke HTML5</canvas>
-					<canvas  width =	"600px" height = "700px" id =	"lerret2">Din browser støtter ikke HTML5</canvas>
+					<canvas  width =	"600px" height = "700px" id =	"lerret">Your browser does not support HTML5</canvas>
+					<canvas  width =	"600px" height = "700px" id =	"lerret2">Your browser does not support HTML5</canvas>
 				</div>
 				
-				
 				<main>
-				
 					
 					<section id ="section-hint">
 						<p> Velg kategorie	
@@ -54,16 +48,16 @@
 						<p>
 							<button  type = "button" id =	"btnStart">Start!</button> 
 							
-							HINT:	<i id ="btnHint" class="fa fa-question-circle fa-2x" aria-hidden="true"></i>
+							HINT:	<span id ="paragrafHint">	<i id ="btnHint" class="fa fa-question-circle fa-2x" aria-hidden="true"></i>
+							Dette gir deg ordet, MEN du taper mer enn du vinner. :(
+							</span>
 						</p>
+						
 					
 					</section>
 					
 					
-					
-					
 					<section id ="section-submit">
-					
 						<header> 
 							<h3> Submit letter</h3>
 						</header>
@@ -132,7 +126,9 @@
 				
 				<footer>
 						<p id=	"contact">
-							Ådne Tobiesen 	
+							Ådne Tobiesen 
+						</p>
+						<p>	
 							<a href="https://www.linkedin.com/in/%C3%A5dne-tobiesen-0b44b5a8/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 							<a href ="mailto:aadne.t@live.com"><i class="fa fa-envelope" aria-hidden="true"></i> </a>
 							<a href="http://www.facebook.com/smygen91"><i class="fa fa-facebook" aria-hidden="true"></i></a>

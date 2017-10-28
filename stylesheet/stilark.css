@@ -11,9 +11,17 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
-		font-family: 'Montserrat', sans-serif;
 	}
-
+	
+	h1,h2,h3,h4,h5,h6{
+		font-family: 'Jura', sans-serif;
+	}
+	
+	p {
+		font-family: 'Jura', sans-serif;
+		
+	}
+	
 															/* Taken from  MDN */
 	html {
 	  font-size: 17px;
@@ -94,6 +102,10 @@
 		border-bottom: solid;
 	}
 	
+	#activeDirectory{
+		border-bottom: solid;
+	}
+	
 	
 	#master-grid{
 		max-width: 1400px;
@@ -120,6 +132,10 @@
 	}
 	
 	/*-------------------------------------Canvas & Articles------------------------------------- */
+	
+	#paragrafHint{
+		display:none;
+	}
 	
 	#flater{
 		

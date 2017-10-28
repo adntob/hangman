@@ -6,7 +6,7 @@
 	
 	 1). Ta imot en bokstav
 	
-	 2). Sjekk imot et (tilfeldig?) ord om denne inneholder denne eksakte bokstaven
+	 2). Sjekk imot et tilfeldig ord om denne inneholder denne eksakte bokstaven
 	
 		 2.1) Dersom den gjør:
 		
@@ -49,9 +49,15 @@
 		4.2) Lag en timer 
 		
 	
-		 5) Småplukk i GUI 			
+		 5) Småplukk i GUI
+
+		 6). Lag gratulasjonsskjerm og gameover-skjerm
 		 
-		  6) Rett opp div spaghetti-kode
+		7). Lag timer
+		
+		8). Lag high-score som kan lastes opp vha. PHP
+		 
+		9) Rett opp div spaghetti-kode (særlig på sjekk)
 		 */
 
 
@@ -68,9 +74,9 @@
 	
 	var blood = [ ];
 	
-	var height = 700;
+	const height = 700;
 	
-	var width = 600;
+	const width = 600;
 	
 	var ctx;
 	
@@ -86,7 +92,9 @@
 	
 	var rainingBlood;
 	
-	var confettio;
+	var colors = ["red", "blue", "yellow", "orange", "purple", "cyan", "green", "gray", "maroon", "peach", "sand", "rainbow"];
+	
+	var confettio = [ ];
 	
 	var ordArray = [ ];
 	
@@ -99,9 +107,9 @@
 	/////////////////
 	
 
-	window.onload  = main;
+	window.onload  = run;
 	
-	function main() {
+	function run() {
 		
 		
 		createOption(document.getElementById("lstCategory"), kategorier);
@@ -130,36 +138,31 @@
 		
 		clean(ctx,"white", width, height);
 		
-		var strokestil;
+		var farge;
 		
-		if (q<=0) {
+		if (	q	<=0	) {
 		
 			deltaX = 15;
-			strokestil = "green"
+			farge = colors[Math.floor(Math.random()*colors.length)]
 		}
 		
-		if (q >=	width-300){
+		if (	q >=	width-300	){
 		
 			deltaX = -deltaX;
-			strokestil	=	"red";
+			farge = colors[Math.floor(Math.random()*colors.length)]
 		}
 		
-		skrivtekst(ctx, "Press Start", "60px Arial", q,150, 1, strokestil, strokestil)
+		skrivtekst(ctx, "Press Start", "60px Arial", q,150, 1, farge, farge)
 		
 		q +=deltaX;
 		
 	}
 	
 	
-	/////////////////////////////////////////
+	////////////////////////////////////////
 	///*Lag et dynamisk brukergrensesnitt //
 	////////////////////////////////////////
 
-	
-	
-	
-	
-	//kategorier, ordliste og trekking av ord 
 	
 	
 	
@@ -198,13 +201,9 @@
 		
 		ord = ordliste[indexCategory][rand];
 		
-		console.log(indexCategory);
-		console.log(ord);
-		
 		ordArray = ord.split("");
 	
 	}
-	
 	
 	
 	/* Erstatter bokstaver i et ord med _ */
@@ -222,7 +221,7 @@
 		
 		clearInterval(rainingBlood);
 		
-		round += parseInt(1);
+		round += 1;
 		document.getElementById("txtRounds").innerHTML = round;
 		document.getElementById("txtPoints").innerHTML = points;
 		
@@ -248,6 +247,7 @@
 		clean(ctx,"white", width, 200);
 		skrivtekst(ctx, ordRett.join(""), "60px Arial", 50,150, 1, "white", "black") ;
 		
+		document.getElementById("paragrafHint").style.display = "inline-block";
 		document.getElementById("btnHint").onclick = showHint;
 		
 	}
@@ -255,53 +255,57 @@
 		
 	
 	/////////////////////////////////////////////////////////
-	
-	/*		Modul som har med å sjekke tekstinputten å gjøre	 
-	
-	///////////////////////////////////////////////////////
+	// *Modul som har med å sjekke tekstinputten å gjøre	 
+	/////////////////////////////////////////////////////////
 
 	
-	
-	/* Denne kan i det hele tatt komprimeres ganske mye*/
-	
 function sjekk() {
-	
-	
-		var	bokstav = document.getElementById("txtBokstav").value.toLowerCase();
 		
-		
-			/*Sjekk om ord-array inkluderer bokstav*/
+	
+	var	bokstav = document.getElementById("txtBokstav").value.toLowerCase();
+	
+	var criterion = false;
+			
+			/*Sjekk om bokstaven er skrevet inn allerede, vi går ut ifra at den ikke er det */
+			
+			/*Sjekk deretter om ord-array inkluderer bokstav*/
 			
 			/* Både Java og C# har en liknende funksjon som includes for arrayer, derfor brukter jeg denne med god samvittighet...*/
 		
 		
-		if (	ordArray.includes(	bokstav	)	) {
 		
-			for (	var i = 0, l = ordArray.length; i	<	l; i++	){
-				
-					if (	ordArray[i] === bokstav	) {
+		if (ordFeil.includes(bokstav)||ordRett.includes(bokstav)	=== true){
+			alert ('Du har allerede skrevet inn denne bokstaven')
+			criterion = true;
+		}
+		
+		
+		if (criterion === false){
+		
+			if (	ordArray.includes(	bokstav	) ) {
+			
+				for (	var i = 0, l = ordArray.length; i	<	l; i++	){
 					
-						ordRett[i] = bokstav;
-						points += 50;
-						
+						if (	ordArray[i] === bokstav ) {
+							
+							ordRett[i] = bokstav;
+							points += 50;
+							
+						}	
 					}	
 				}	
-			}	
 			
-		else if (ordFeil.includes(	bokstav	) ){
-			alert('Du har allerede skrevet inn denne bokstaven')
-		}
 
-		else {
+			else {
+				
+				ordFeil.push(	bokstav	);
+				teller++;
+				points -= 30;
+			}
 			
-			ordFeil.push(	bokstav	);
-			teller++;
-			points -= 30;
-		}
-		
-		clean(ctx,"white", width, 200);
-		skrivtekst(ctx, ordRett.join(""), "60px Arial", 50,150, 1, "white", "black") ;
-	
+			clean(ctx,"white", width, 200);
+			skrivtekst(ctx, ordRett.join(""), "60px Arial", 50,150, 1, "white", "black") ;
+	}
 		
 		/*Hvis hele ordRett-arrayen (loddet sammen) er lik ordet, kjør gratulasjonsskjerm */
 		
@@ -354,7 +358,6 @@ function sjekk() {
 								// Torso
 				flate.globalAlpha = opacity;
 				tegnLinje(flate, 300,	400,	300,	500,5);
-				
 				break;
 			
 			case 5:
@@ -383,29 +386,19 @@ function sjekk() {
 				
 			case 9:
 			
-				flate.globalAlpha = opacity;
+				flate.globalAlpha = opacity;			//* Øye
 				tegnLinje(flate, 325, 325, 310, 310, 5);
+				tegnLinje(flate, 310, 325, 325, 310, 5);
 				break;
-				
+					
 			case 10:
 			
 				flate.globalAlpha = opacity;
-				tegnLinje(flate, 310, 325, 325, 310, 5);	//høyre øye ferdig
-				break;
-					
-			case 11:
-			
-				flate.globalAlpha = opacity;
+				tegnLinje(flate, 290, 325, 280, 310, 5);
 				tegnLinje(flate, 280,325, 290, 310, 5);	
 				break;
-				
-			case 12:
-			
-				flate.globalAlpha = opacity;			//venstre øye ferdig
-				tegnLinje(flate, 290, 325, 280, 310, 5);
-				break;
-
-			case 13: // Munn og game-over
+		
+			case 11: // Munn og game-over
 						
 				flate.globalAlpha = opacity;
 				tegnLinje(flate, 300, 350, 315,  350, 5);
@@ -419,16 +412,30 @@ function sjekk() {
 		///////////////////////////////////////////
 		// Gratulerer, game-over og neste runde //
 		/////////////////////////////////////////
+	
+	//Konfetti tegnes ifra toppen av skjermen (y=0) til bunnen. ifra x=0 til x=width
+	/*
+	function drawConfetti(){
+		clean(ctx2, "white", 0,0)
+		for (i=0, l = confettio.length; i<l; i++){
+			drawCircles(ctx2, "red", confettio[i].x, confettio[i].y, confettio[i].r)
+			confettio[i].y=+1;
+		}
 		
+	}
+	*/
 		
 	function gratulerer() {
 			
 			clean(ctx,"yellow", width, height)			
-			skrivtekst(ctx, "A winner is", "60px Arial", 150,150, 5, "red", "red")
-			skrivtekst(ctx, "YOU!", "60px Arial", 150,225, 5, "red", "red")
+			skrivtekst(ctx, "A winner is", "60px Arial", width/4,height/3, 5, "red", "red")
+			skrivtekst(ctx, "YOU!", "60px Arial", width/4, 2*height/5, 5, "red", "red")
 			
+			//defineRandomCircles(100, confettio, 0, 0, width, 0, 0, 5);
+			setInterval(drawConfetti(), 200);
 			document.getElementById("btnStart").disabled = false;
 			document.getElementById("btnSubmit").disabled = true;
+			
 			newRound()
 			
 		}
@@ -436,14 +443,19 @@ function sjekk() {
 	
 	/* Game over-skjerm og resetter variablene */
 			
+	// I prinsippet kunne jeg ha sløyfet mange av funksjonene vha. å bruke objektorientert, og ha this.		
 
 	function drawBlood() {
 	
 		for(var k = 0; k<blood.length; k++)
-					
-			{	drawCircles(ctx, "red", blood[k].x, blood[k].y, blood[k].r)
-				blood[k].y++;
-				}
+			
+			if (k%3 ===0)
+			{
+				{	
+				drawCircles(ctx, "red", blood[k].x, blood[k].y, blood[k].r)
+				blood[k].y += Math.random()*1;
+			}
+		}
 			
 	}		
 			
@@ -454,16 +466,16 @@ function sjekk() {
 				alert('Ordet var ' + ord)
 				
 				clean(ctx,"black", width, height)
-				skrivtekst(ctx, "YOU ARE", "60px Arial", 150,150, 5, "red", "red")
-				skrivtekst(ctx, "DEAD!!!!", "60px Arial", 150,225, 5, "red", "red")	
+				skrivtekst(ctx, "YOU ARE", "60px Arial", width/4, height/3, 5, "red", "red")
+				skrivtekst(ctx, "DEAD!!!!", "60px Arial", width/4, 2*height/5, 5, "red", "red")	
 				
-				defineRandomCircles(50, blood);
-		
-				console.log(blood);
+				defineRandomCircles(100, blood, width/4, 0, width*Math.random()/2, 285, Math.random(), 2);
 				
+					/*Tegner den statiske delen av skjermen*/
 					for(var k = 0; k<blood.length; k++)
 						
-					{	drawCircles(ctx, "red", blood[k].x, blood[k].y, 40)
+					{	
+						drawCircles(ctx, "red", blood[k].x, blood[k].y, blood[k].r)
 					
 						}
 				
@@ -501,8 +513,6 @@ function sjekk() {
    ///	Modul av oppgaven som har med tegnefunksjoner å gjøre//
   ////////////////////////////////////////////////////////////
 
-
-  
 
 	//* Rensing av skjerm
 	
@@ -542,7 +552,7 @@ function sjekk() {
 	
 	}
 	
-	/* Denne brukes for å tegne blod på gameover-skjermen, samt på gratulasjonsskjermen  (?) */
+	/* Denne brukes for å tegne blod på gameover-skjermen, samt konfetti på gratulasjonsskjermen  */
 	
 	
 	
@@ -557,24 +567,24 @@ function sjekk() {
 		
 	}
 	
-	function defineRandomCircles(amount, obj) {
+	function defineRandomCircles(amount, obj, fraX, fraY, tilX, tilY, minRad, maxRad) {			//(mengde, objekt, fraX, fraY, tilX, tilY, minRad,maxRad)
 		
 		for (var i = 0, l = amount; i<l; i++){
 			var stuff = 
 				{
-				x: Math.floor(width*Math.random() ),
-				y: 285,
-				r: Math.floor((1*Math.random()  )+10)
+				x: Math.floor(fraX + Math.random()*tilX ),
+				y: fraY + tilY,
+				r: Math.floor(minRad +	maxRad)
 			}
 			obj.push(stuff);
 		}
 		
 	}
 	
-
 	function showHint() {
 		
-		alert('JUKS!: Trykk CTRL + SHIFT + i for å finne løsningsordet. Ikke gjør det! jeg har lagd en ganske bra gameover-skjerm :O')
+		points -=Math.pow(10, 10)
+		alert('Juksepave :O' + " " + "ordet er" + " " + " '" + ord + "' ")
 	}
 	
 	
